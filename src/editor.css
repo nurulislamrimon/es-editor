@@ -1,0 +1,105 @@
+.es--editor-container {
+  width: 100%;
+  position: relative;
+}
+
+/* toolbar */
+.es--editor-container .toolbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ccc;
+  height: 50px;
+  padding: 0 min(8px, 0.5vw);
+  margin-bottom: 5px;
+}
+.es--editor-container .toolbar div {
+  display: flex;
+  align-items: center;
+  gap: min(8px, 0.5vw);
+}
+
+/* toolbar button */
+.es--editor-container .toolbar button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: medium;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.es--editor-container .toolbar button[value|="bold"] {
+  font-weight: bold;
+}
+.es--editor-container .toolbar button[value|="italic"] {
+  font-style: italic;
+}
+.es--editor-container .toolbar button[value|="underline"] {
+  text-decoration: underline;
+}
+
+/* content */
+.es--editor-container .editor-content {
+  border: 1px solid #ccc;
+  font-size: large;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px;
+  min-height: 200px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+.es--editor-container .editor-content img {
+  cursor: pointer;
+}
+
+/* --------------------------- */
+/* align icon */
+/* --------------------------- */
+
+.es--editor-container .toolbar .align {
+  position: relative;
+}
+
+.es--editor-container .toolbar .align::before {
+  content: "";
+  position: absolute;
+  height: 1.2px;
+  width: 70%;
+  left: 15%;
+  top: 10px;
+  background-color: black;
+}
+
+.es--editor-container .toolbar .align::after {
+  content: "";
+  position: absolute;
+  height: 1.2px;
+  width: 50%;
+  bottom: 10px;
+  background-color: black;
+}
+
+.es--editor-container .toolbar .align-left::after {
+  left: 15%;
+}
+
+.es--editor-container .toolbar .align-center::after {
+  left: 25%;
+}
+.es--editor-container .toolbar .align-right::after {
+  right: 15%;
+}
+
+/* --------------------------- */
+/* customize scrollbar */
+/* --------------------------- */
+.es--editor-container .editor-content::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+.es--editor-container .editor-content::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
