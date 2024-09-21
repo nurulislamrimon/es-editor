@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useRef } from "react";
 import Block from "../Components/Block";
-import { moveCursorToEnd } from "../utils/cursorController";
+import { moveCursorToEndAndFocus } from "../utils/cursorController";
 
-const Blocks = ({ blocks, setBlocks, setSelectedBlock }) => {
+const Blocks = ({ blocks, setBlocks }) => {
   const containerRef = useRef(null);
 
   const focusLastBlockWhileEmpty = (event) => {
@@ -13,7 +13,7 @@ const Blocks = ({ blocks, setBlocks, setSelectedBlock }) => {
 
       if (lastBlock) {
         lastBlock.focus();
-        moveCursorToEnd(lastBlock);
+        moveCursorToEndAndFocus(lastBlock);
       }
     }
   };
@@ -31,7 +31,6 @@ const Blocks = ({ blocks, setBlocks, setSelectedBlock }) => {
           block={block}
           setBlocks={setBlocks}
           index={index}
-          setSelectedBlock={setSelectedBlock}
         />
       ))}
     </div>

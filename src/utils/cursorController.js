@@ -1,4 +1,4 @@
-const moveCursorToEnd = (contentDiv) => {
+const moveCursorToEndAndFocus = (contentDiv) => {
   const range = document.createRange();
   const selection = window.getSelection();
   range.selectNodeContents(contentDiv);
@@ -7,4 +7,5 @@ const moveCursorToEnd = (contentDiv) => {
   selection.addRange(range);
   contentDiv.focus();
 };
-export { moveCursorToEnd };
+
+export { moveCursorToEndAndFocus };
