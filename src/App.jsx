@@ -1,45 +1,55 @@
 import "./global.css";
-import useBlocks from "./hooks/useBlocks";
+import { useState } from "react";
 import Blocks from "./UI/Blocks";
 import Toolbar from "./UI/Toolbar";
 
+// Define initial block structure
+const initialBlocks = [
+  {
+    type: "header",
+    shouldFocus: false,
+    data: {
+      text: "Key features",
+      level: 1,
+    },
+  },
+  {
+    type: "paragraph",
+    shouldFocus: false,
+    data: {
+      text: "Hey. Meet the new Editor. On this picture you can see it in action. Then, try a demo 🤓",
+    },
+  },
+];
+
 const App = () => {
-  const { blocks, setBlocks } = useBlocks();
+  const [blocks, setBlocks] = useState(initialBlocks);
+  const [selectedBlock, setSelectedBlock] = useState(0);
 
+  // Handle changes in text blocks
   const handleChange = (index, event) => {
-    const newContent = event.target.value;
-
-    // Ensure you're accessing the correct node
-    const contentDiv = document.querySelector(
-      `.editor-content[data-index="${index}"]`
-    );
-
-    if (contentDiv) {
-      const range = document.createRange();
-      range.selectNodeContents(contentDiv); // Ensure contentDiv is a valid node
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-    } else {
-      console.error("Content div not found for index:", index);
-    }
-
-    // Update the block with new content
-    setBlocks((prev) => {
-      const newBlocks = [...prev];
-      newBlocks[index].data.text = newContent;
-      return newBlocks;
-    });
+    const newBlocks = [...blocks];
+    newBlocks[index].data.text = event.target.value;
+    setBlocks(newBlocks);
   };
 
   const applyFormatting = (format) => {
-    document.execCommand(format, false, null); // Apply text formatting
+    document.execCommand(format, false, null);
   };
 
   return (
     <div className="es--editor-container">
-      <Toolbar applyFormatting={applyFormatting} />
-      <Blocks handleChange={handleChange} />
+      <Toolbar
+        selectedBlock={selectedBlock}
+        setBlocks={setBlocks}
+        applyFormatting={applyFormatting}
+      />
+      <Blocks
+        blocks={blocks}
+        setBlocks={setBlocks}
+        handleChange={handleChange}
+        setSelectedBlock={setSelectedBlock}
+      />
       <button onClick={() => console.log(blocks)}>Submit</button>
     </div>
   );

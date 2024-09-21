@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
 import Block from "../Components/Block";
-import useBlocks from "../hooks/useBlocks";
 
-const Blocks = ({ handleChange }) => {
-  const { blocks } = useBlocks();
-
+const Blocks = ({ handleChange, blocks, setBlocks, setSelectedBlock }) => {
   return (
     <div className="blocks-container">
       {blocks.map((block, index) => (
         <Block
           key={index}
+          blocks={blocks}
           block={block}
+          setBlocks={setBlocks}
           index={index}
           handleChange={handleChange}
+          setSelectedBlock={setSelectedBlock}
         />
       ))}
     </div>

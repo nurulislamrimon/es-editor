@@ -1,8 +1,7 @@
-import useBlocks from "../hooks/useBlocks";
+import { addNewBlock } from "../utils/blocksController";
 
 /* eslint-disable react/prop-types */
-const Toolbar = ({ applyFormatting }) => {
-  const { addBlock, selectedBlock } = useBlocks();
+const Toolbar = ({ selectedBlock, applyFormatting, setBlocks }) => {
   return (
     <div className="toolbar">
       {/* bold italic and underline */}
@@ -37,14 +36,14 @@ const Toolbar = ({ applyFormatting }) => {
       <div>
         <button
           title="Align Left"
-          onClick={addBlock}
+          onClick={(e) => addNewBlock(e, setBlocks)}
           value="justifyLeft"
           aria-label="Align Left"
           className="align align-left"
         ></button>
         <button
           title="Align Center"
-          onClick={addBlock}
+          onClick={(e) => addNewBlock(e, setBlocks)}
           value="justifyCenter"
           aria-label="Align Center"
           className="align align-center"
@@ -53,7 +52,7 @@ const Toolbar = ({ applyFormatting }) => {
         </button>
         <button
           title="Align Right"
-          onClick={addBlock}
+          onClick={(e) => addNewBlock(e, setBlocks)}
           value="justifyRight"
           aria-label="Align Right"
           className="align align-right"
@@ -64,7 +63,7 @@ const Toolbar = ({ applyFormatting }) => {
       <div>
         <button
           title="Add a Title"
-          onClick={addBlock}
+          onClick={(e) => addNewBlock(e, setBlocks)}
           value="h1"
           aria-label="Heading 1"
         >
@@ -72,7 +71,7 @@ const Toolbar = ({ applyFormatting }) => {
         </button>
         <button
           title="Add a Subtitle"
-          onClick={addBlock}
+          onClick={(e) => addNewBlock(e, setBlocks)}
           value="h2"
           aria-label="Heading 2"
         >
@@ -80,7 +79,7 @@ const Toolbar = ({ applyFormatting }) => {
         </button>
         <button
           title="Add a Paragraph"
-          onClick={addBlock}
+          onClick={(e) => addNewBlock(e, setBlocks)}
           value="p"
           aria-label="Paragraph"
         >

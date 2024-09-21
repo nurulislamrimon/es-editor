@@ -1,11 +1,19 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef } from "react";
-import useBlocks from "../hooks/useBlocks";
+import {
+  focusNextBlock,
+  focusPrevBlock,
+  removeBlock,
+} from "../utils/blocksController";
 
-const Block = ({ block, index, handleChange }) => {
-  const { removeBlock, setSelectedBlock, focusNextBlock, focusPrevBlock } =
-    useBlocks();
-
+const Block = ({
+  blocks,
+  block,
+  setBlocks,
+  index,
+  handleChange,
+  setSelectedBlock,
+}) => {
   const contentRef = useRef(null);
 
   useEffect(() => {
@@ -28,9 +36,17 @@ const Block = ({ block, index, handleChange }) => {
         focusPrevBlock(index);
       }
 
-      // Remove block on backspace if empty
+      // Focus logic for Delete and Backspace
       if (e.key === "Backspace" && contentDiv.textContent.trim() === "") {
-        removeBlock(index);
+        removeBlock(index, setBlocks);
+        e.preventDefault();
+      } else if (e.key === "Delete" && index < blocks.length - 1) {
+        focusNextBlock(index);
+      }
+
+      // Move focus to previous block on Backspace
+      if (e.key === "Backspace" && contentDiv.textContent.trim() === "") {
+        removeBlock(index, setBlocks);
         e.preventDefault();
       }
     };
@@ -52,7 +68,7 @@ const Block = ({ block, index, handleChange }) => {
         contentDiv.removeEventListener("mouseup", handleMouseUp);
       };
     }
-  }, [index, removeBlock, focusNextBlock, focusPrevBlock, setSelectedBlock]);
+  }, [index, setBlocks, setSelectedBlock]);
 
   const handleInput = () => {
     const newText = contentRef.current.innerHTML;
@@ -96,7 +112,6 @@ const Block = ({ block, index, handleChange }) => {
       ref={contentRef}
       contentEditable
       onInput={handleInput}
-      className={`editor-content ${block.type}-block`}
       data-index={index}
       dangerouslySetInnerHTML={{ __html: block.data.text }}
     />

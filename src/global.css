@@ -51,22 +51,11 @@
   overflow-y: auto;
 }
 
-.es--editor-container .blocks-container .editor-block {
+.es--editor-container .blocks-container > * {
   border: none;
-}
-
-.es--editor-container .blocks-container .header-1-block {
-  font-size: 34px;
-  font-weight: bold;
-}
-
-.es--editor-container .blocks-container .header-2-block {
-  font-size: 26px;
-  font-weight: bold;
-}
-
-.es--editor-container .blocks-container .paragraph-block {
-  font-size: 18px;
+  padding: 0;
+  margin: 10px;
+  outline: none;
 }
 
 .es--editor-container .blocks-container img {
