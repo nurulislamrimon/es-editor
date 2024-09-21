@@ -1,15 +1,23 @@
+import useBlocks from "../hooks/useBlocks";
+
 /* eslint-disable react/prop-types */
-const Toolbar = ({ addBlock }) => {
+const Toolbar = ({ applyFormatting }) => {
+  const { addBlock, selectedBlock } = useBlocks();
   return (
     <div className="toolbar">
       {/* bold italic and underline */}
       <div>
-        <button title="Bold" onClick={addBlock} value="bold" aria-label="Bold">
+        <button
+          title="Bold"
+          onClick={() => applyFormatting("bold", selectedBlock)}
+          value="bold"
+          aria-label="Bold"
+        >
           B
         </button>
         <button
           title="Italic"
-          onClick={addBlock}
+          onClick={() => applyFormatting("italic", selectedBlock)}
           value="italic"
           aria-label="Italic"
         >
@@ -17,7 +25,7 @@ const Toolbar = ({ addBlock }) => {
         </button>
         <button
           title="Underline"
-          onClick={addBlock}
+          onClick={() => applyFormatting("underline", selectedBlock)}
           value="underline"
           aria-label="Underline"
         >

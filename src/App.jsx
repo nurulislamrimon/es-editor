@@ -1,79 +1,45 @@
 import "./global.css";
-import { useState } from "react";
+import useBlocks from "./hooks/useBlocks";
 import Blocks from "./UI/Blocks";
 import Toolbar from "./UI/Toolbar";
 
-// Define initial block structure
-const initialBlocks = [
-  {
-    type: "header",
-    shouldFocus: false,
-    data: {
-      text: "Key features",
-      level: 1,
-    },
-  },
-  {
-    type: "paragraph",
-    shouldFocus: false,
-    data: {
-      text: "Hey. Meet the new Editor. On this picture you can see it in action. Then, try a demo 🤓",
-    },
-  },
-];
-
 const App = () => {
-  const [blocks, setBlocks] = useState(initialBlocks);
+  const { blocks, setBlocks } = useBlocks();
 
-  // Handle changes in text blocks
   const handleChange = (index, event) => {
-    const newBlocks = [...blocks];
-    newBlocks[index].data.text = event.target.value;
-    setBlocks(newBlocks);
-  };
+    const newContent = event.target.value;
 
-  // Remove block if it's empty and backspace is pressed
-  const removeBlock = (index) => {
-    const newBlocks = [...blocks];
-    newBlocks.splice(index, 1);
-    setBlocks(newBlocks);
-  };
+    // Ensure you're accessing the correct node
+    const contentDiv = document.querySelector(
+      `.editor-content[data-index="${index}"]`
+    );
 
-  // Add new block (header or paragraph) and focus it
-  const addBlock = (event) => {
-    const blockType = event.target.value;
-    let newBlock;
-
-    if (blockType === "h1" || blockType === "h2") {
-      newBlock = {
-        type: "header",
-        data: {
-          text: ``,
-          level: blockType === "h1" ? 1 : 2,
-        },
-        shouldFocus: true, // Set focus flag
-      };
-    } else if (blockType === "p") {
-      newBlock = {
-        type: "paragraph",
-        data: { text: "" },
-        shouldFocus: true, // Set focus flag
-      };
+    if (contentDiv) {
+      const range = document.createRange();
+      range.selectNodeContents(contentDiv); // Ensure contentDiv is a valid node
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+    } else {
+      console.error("Content div not found for index:", index);
     }
 
-    if (newBlock) {
-      setBlocks((prevBlocks) => [...prevBlocks, newBlock]);
-    }
+    // Update the block with new content
+    setBlocks((prev) => {
+      const newBlocks = [...prev];
+      newBlocks[index].data.text = newContent;
+      return newBlocks;
+    });
+  };
+
+  const applyFormatting = (format) => {
+    document.execCommand(format, false, null); // Apply text formatting
   };
 
   return (
     <div className="es--editor-container">
-      <Toolbar addBlock={addBlock} />
-      <Blocks
-        blocks={blocks}
-        handleChange={handleChange}
-        removeBlock={removeBlock}
-      />
+      <Toolbar applyFormatting={applyFormatting} />
+      <Blocks handleChange={handleChange} />
       <button onClick={() => console.log(blocks)}>Submit</button>
     </div>
   );

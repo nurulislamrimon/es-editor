@@ -51,26 +51,21 @@
   overflow-y: auto;
 }
 
-.es--editor-container .blocks-container textarea {
+.es--editor-container .blocks-container .editor-block {
   border: none;
-  outline: none;
-  resize: none;
-  width: 98%;
-  height: fit-content;
-  overflow: hidden;
 }
 
-.es--editor-container .blocks-container textarea.header-1-block {
+.es--editor-container .blocks-container .header-1-block {
   font-size: 34px;
   font-weight: bold;
 }
 
-.es--editor-container .blocks-container textarea.header-2-block {
+.es--editor-container .blocks-container .header-2-block {
   font-size: 26px;
   font-weight: bold;
 }
 
-.es--editor-container .blocks-container textarea.paragraph-block {
+.es--editor-container .blocks-container .paragraph-block {
   font-size: 18px;
 }
 
