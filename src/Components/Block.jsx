@@ -5,15 +5,9 @@ import {
   focusPrevBlock,
   removeBlock,
 } from "../utils/blocksController";
+import { handleChange } from "../utils/changeHandlers";
 
-const Block = ({
-  blocks,
-  block,
-  setBlocks,
-  index,
-  handleChange,
-  setSelectedBlock,
-}) => {
+const Block = ({ blocks, block, setBlocks, index, setSelectedBlock }) => {
   const contentRef = useRef(null);
 
   useEffect(() => {
@@ -38,7 +32,7 @@ const Block = ({
 
       // Focus logic for Delete and Backspace
       if (e.key === "Backspace" && contentDiv.textContent.trim() === "") {
-        removeBlock(index, setBlocks);
+        removeBlock({ index, setBlocks });
         e.preventDefault();
       } else if (e.key === "Delete" && index < blocks.length - 1) {
         focusNextBlock(index);
@@ -46,7 +40,7 @@ const Block = ({
 
       // Move focus to previous block on Backspace
       if (e.key === "Backspace" && contentDiv.textContent.trim() === "") {
-        removeBlock(index, setBlocks);
+        focusNextBlock(index);
         e.preventDefault();
       }
     };
@@ -72,7 +66,7 @@ const Block = ({
 
   const handleInput = () => {
     const newText = contentRef.current.innerHTML;
-    handleChange(index, { target: { value: newText } });
+    handleChange(index, { target: { value: newText } }, setBlocks);
 
     setTimeout(() => {
       const range = document.createRange();

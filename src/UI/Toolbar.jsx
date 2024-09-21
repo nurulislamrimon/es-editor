@@ -1,14 +1,15 @@
 import { addNewBlock } from "../utils/blocksController";
+import { applyFormatting } from "../utils/changeHandlers";
 
 /* eslint-disable react/prop-types */
-const Toolbar = ({ selectedBlock, applyFormatting, setBlocks }) => {
+const Toolbar = ({ setBlocks }) => {
   return (
     <div className="toolbar">
       {/* bold italic and underline */}
       <div>
         <button
           title="Bold"
-          onClick={() => applyFormatting("bold", selectedBlock)}
+          onClick={() => applyFormatting("bold")}
           value="bold"
           aria-label="Bold"
         >
@@ -16,7 +17,7 @@ const Toolbar = ({ selectedBlock, applyFormatting, setBlocks }) => {
         </button>
         <button
           title="Italic"
-          onClick={() => applyFormatting("italic", selectedBlock)}
+          onClick={() => applyFormatting("italic")}
           value="italic"
           aria-label="Italic"
         >
@@ -24,7 +25,7 @@ const Toolbar = ({ selectedBlock, applyFormatting, setBlocks }) => {
         </button>
         <button
           title="Underline"
-          onClick={() => applyFormatting("underline", selectedBlock)}
+          onClick={() => applyFormatting("underline")}
           value="underline"
           aria-label="Underline"
         >
@@ -36,14 +37,14 @@ const Toolbar = ({ selectedBlock, applyFormatting, setBlocks }) => {
       <div>
         <button
           title="Align Left"
-          onClick={(e) => addNewBlock(e, setBlocks)}
+          onClick={(e) => addNewBlock({ e, setBlocks })}
           value="justifyLeft"
           aria-label="Align Left"
           className="align align-left"
         ></button>
         <button
           title="Align Center"
-          onClick={(e) => addNewBlock(e, setBlocks)}
+          onClick={(e) => addNewBlock({ e, setBlocks })}
           value="justifyCenter"
           aria-label="Align Center"
           className="align align-center"
@@ -52,7 +53,7 @@ const Toolbar = ({ selectedBlock, applyFormatting, setBlocks }) => {
         </button>
         <button
           title="Align Right"
-          onClick={(e) => addNewBlock(e, setBlocks)}
+          onClick={(e) => addNewBlock({ e, setBlocks })}
           value="justifyRight"
           aria-label="Align Right"
           className="align align-right"
@@ -63,7 +64,7 @@ const Toolbar = ({ selectedBlock, applyFormatting, setBlocks }) => {
       <div>
         <button
           title="Add a Title"
-          onClick={(e) => addNewBlock(e, setBlocks)}
+          onClick={(e) => addNewBlock({ e, setBlocks })}
           value="h1"
           aria-label="Heading 1"
         >
@@ -71,7 +72,7 @@ const Toolbar = ({ selectedBlock, applyFormatting, setBlocks }) => {
         </button>
         <button
           title="Add a Subtitle"
-          onClick={(e) => addNewBlock(e, setBlocks)}
+          onClick={(e) => addNewBlock({ e, setBlocks })}
           value="h2"
           aria-label="Heading 2"
         >
@@ -79,7 +80,7 @@ const Toolbar = ({ selectedBlock, applyFormatting, setBlocks }) => {
         </button>
         <button
           title="Add a Paragraph"
-          onClick={(e) => addNewBlock(e, setBlocks)}
+          onClick={(e) => addNewBlock({ e, setBlocks })}
           value="p"
           aria-label="Paragraph"
         >

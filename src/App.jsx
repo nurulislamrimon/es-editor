@@ -24,32 +24,11 @@ const initialBlocks = [
 
 const App = () => {
   const [blocks, setBlocks] = useState(initialBlocks);
-  const [selectedBlock, setSelectedBlock] = useState(0);
-
-  // Handle changes in text blocks
-  const handleChange = (index, event) => {
-    const newBlocks = [...blocks];
-    newBlocks[index].data.text = event.target.value;
-    setBlocks(newBlocks);
-  };
-
-  const applyFormatting = (format) => {
-    document.execCommand(format, false, null);
-  };
 
   return (
     <div className="es--editor-container">
-      <Toolbar
-        selectedBlock={selectedBlock}
-        setBlocks={setBlocks}
-        applyFormatting={applyFormatting}
-      />
-      <Blocks
-        blocks={blocks}
-        setBlocks={setBlocks}
-        handleChange={handleChange}
-        setSelectedBlock={setSelectedBlock}
-      />
+      <Toolbar setBlocks={setBlocks} />
+      <Blocks blocks={blocks} setBlocks={setBlocks} />
       <button onClick={() => console.log(blocks)}>Submit</button>
     </div>
   );

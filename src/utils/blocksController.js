@@ -1,8 +1,8 @@
 // =========================================
 // add block
 // =========================================
-const addNewBlock = (event, setBlocks) => {
-  const blockType = event.target.value;
+const addNewBlock = ({ e, setBlocks }) => {
+  const blockType = e.target.value;
   let newBlock;
 
   if (blockType === "h1" || blockType === "h2") {
@@ -31,7 +31,7 @@ const addNewBlock = (event, setBlocks) => {
 // remove block
 // =========================================
 
-const removeBlock = (index, setBlocks) => {
+const removeBlock = ({ index, setBlocks }) => {
   setBlocks((blocks) => {
     const newBlocks = [...blocks];
     newBlocks.splice(index, 1);
