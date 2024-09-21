@@ -1,23 +1,37 @@
 /* eslint-disable react/prop-types */
-const NewBlock = ({ block, index, handleChange }) => (
-  <textarea
-    value={block.data.text}
-    onChange={(e) => handleChange(index, e)}
-    className={`${block.type}-${block.data.level}-block`}
-  />
-);
+import NewBlock from "../Components/NewBlock";
 
-const Blocks = ({ blocks, handleChange }) => {
+const Blocks = ({ blocks, handleChange, removeBlock }) => {
+  const focusNextBlock = (index) => {
+    const nextElement = document.querySelector(
+      `.block:nth-child(${index + 2}) textarea`
+    );
+    if (nextElement) {
+      nextElement.focus();
+    }
+  };
+
+  const focusPrevBlock = (index) => {
+    const prevElement = document.querySelector(
+      `.block:nth-child(${index}) textarea`
+    );
+    if (prevElement) {
+      prevElement.focus();
+    }
+  };
+
   return (
     <div className="blocks-container">
       {blocks.map((block, index) => (
         <div key={index} className="block">
-          {block.type === "paragraph" && (
-            <NewBlock block={block} index={index} handleChange={handleChange} />
-          )}
-          {block.type === "header" && (
-            <NewBlock block={block} index={index} handleChange={handleChange} />
-          )}
+          <NewBlock
+            block={block}
+            index={index}
+            handleChange={handleChange}
+            removeBlock={removeBlock}
+            focusNextBlock={focusNextBlock}
+            focusPrevBlock={focusPrevBlock}
+          />
         </div>
       ))}
     </div>

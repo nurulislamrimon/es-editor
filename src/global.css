@@ -53,8 +53,9 @@
 
 .es--editor-container .blocks-container textarea {
   border: none;
+  outline: none;
   resize: none;
-  width: 100%;
+  width: 98%;
   height: fit-content;
   overflow: hidden;
 }
@@ -65,8 +66,12 @@
 }
 
 .es--editor-container .blocks-container textarea.header-2-block {
-  font-size: larger;
+  font-size: 26px;
   font-weight: bold;
+}
+
+.es--editor-container .blocks-container textarea.paragraph-block {
+  font-size: 18px;
 }
 
 .es--editor-container .blocks-container img {

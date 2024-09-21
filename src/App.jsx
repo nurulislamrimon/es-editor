@@ -6,19 +6,22 @@ import Toolbar from "./UI/Toolbar";
 // Define initial block structure
 const initialBlocks = [
   {
-    type: "paragraph",
-    data: {
-      text: "Hey. Meet the new Editor. On this picture you can see it in action. Then, try a demo 🤓",
-    },
-  },
-  {
     type: "header",
+    shouldFocus: false,
     data: {
       text: "Key features",
       level: 1,
     },
   },
+  {
+    type: "paragraph",
+    shouldFocus: false,
+    data: {
+      text: "Hey. Meet the new Editor. On this picture you can see it in action. Then, try a demo 🤓",
+    },
+  },
 ];
+
 const App = () => {
   const [blocks, setBlocks] = useState(initialBlocks);
 
@@ -29,33 +32,32 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
-  // Add new block (e.g., header or paragraph)
+  // Remove block if it's empty and backspace is pressed
+  const removeBlock = (index) => {
+    const newBlocks = [...blocks];
+    newBlocks.splice(index, 1);
+    setBlocks(newBlocks);
+  };
+
+  // Add new block (header or paragraph) and focus it
   const addBlock = (event) => {
     const blockType = event.target.value;
-
-    // Handle inline styling
-    if (
-      blockType === "bold" ||
-      blockType === "italic" ||
-      blockType === "underline"
-    ) {
-      document.execCommand(blockType, false);
-      return;
-    }
-
     let newBlock;
+
     if (blockType === "h1" || blockType === "h2") {
       newBlock = {
         type: "header",
         data: {
-          text: "",
+          text: ``,
           level: blockType === "h1" ? 1 : 2,
         },
+        shouldFocus: true, // Set focus flag
       };
     } else if (blockType === "p") {
       newBlock = {
         type: "paragraph",
         data: { text: "" },
+        shouldFocus: true, // Set focus flag
       };
     }
 
@@ -64,21 +66,15 @@ const App = () => {
     }
   };
 
-  // Save data to backend
-  const handleSubmit = async () => {
-    console.log(blocks);
-  };
-
   return (
     <div className="es--editor-container">
       <Toolbar addBlock={addBlock} />
       <Blocks
         blocks={blocks}
         handleChange={handleChange}
-        addBlock={addBlock}
-        handleSubmit={handleSubmit}
+        removeBlock={removeBlock}
       />
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={() => console.log(blocks)}>Submit</button>
     </div>
   );
 };
