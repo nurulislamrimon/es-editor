@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef } from "react";
-import { focusNextBlock, removeBlock } from "../utils/blocksController";
 import { handleChange } from "../utils/changeHandlers";
 import {
   removeAndSwitchBlockBackspaceDeleteEvent,
